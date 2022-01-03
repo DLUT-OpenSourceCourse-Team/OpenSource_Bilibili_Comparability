@@ -25,7 +25,6 @@ def save(html):
     # 定义好相关列表准备存储相关信息
     name = []  # 动漫名字
     bfl = []  # 播放量
-    pls = []  # 评论数
     scs = []  # 收藏数
     # 动漫名字存储
     for tag in soup.find_all('div', class_='info'):
@@ -43,16 +42,6 @@ def save(html):
             bf = re.search(r'\d*(\.)?\d', bf).group()
         bfl.append(float(bf))
     print(bfl)
-    # 评论数存储
-    for tag in soup.find_all('div', class_='detail'):
-        pl = tag.find('span', class_='data-box').next_sibling.next_sibling.get_text()
-        # 统一单位
-        if '万' not in pl:
-            pl = '%.1f' % (float(pl) / 10000)
-        else:
-            pl = re.search(r'\d*(\.)?\d', pl).group()
-        pls.append(float(pl))
-    print(pls)
     # 收藏数
     for tag in soup.find_all('div', class_='detail'):
         sc = tag.find('span', class_='data-box').next_sibling.next_sibling.next_sibling.next_sibling.get_text()
@@ -71,7 +60,6 @@ def view(info):
     my_font = font_manager.FontProperties(fname='./data/STHeiti Medium.ttc')  # 设置中文字体（图标中能显示中文）
     dm_name = info[0]  # 番剧名
     dm_play = info[1]  # 番剧播放量
-    dm_review = info[2]  # 番剧评论数
     dm_favorite = info[3]  # 番剧收藏数
     # 为了坐标轴上能显示中文
     plt.rcParams['font.sans-serif'] = ['SimHei']
