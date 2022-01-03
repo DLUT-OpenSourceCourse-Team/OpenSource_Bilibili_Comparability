@@ -60,76 +60,26 @@ def view(info):
     my_font = font_manager.FontProperties(fname='./data/STHeiti Medium.ttc')  # 设置中文字体（图标中能显示中文）
     dm_name = info[0]  # 番剧名
     dm_play = info[1]  # 番剧播放量
-    dm_favorite = info[3]  # 番剧收藏数
+    dm_favorite = info[2]  # 番剧收藏数
     # 为了坐标轴上能显示中文
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
-    # 综合评分和播放量对比
-    # 综合评分条形图
+    # 播放量和收藏数对比
+    # 播放量条形图
     fig, ax1 = plt.subplots()
-    plt.bar(dm_name, dm_com_score, color='red')  # 设置柱状图
-    plt.title('综合评分和播放量数据分析', fontproperties=my_font)  # 表标题
+    plt.bar(dm_name, dm_play, color='cyan')
+    plt.title('播放量和收藏数数据分析')
+    plt.ylabel('播放量（万）')
     ax1.tick_params(labelsize=6)
-    plt.xlabel('番剧名')  # 横轴名
-    plt.ylabel('综合评分')  # 纵轴名
-    plt.xticks(rotation=90, color='green')  # 设置横坐标变量名旋转度数和颜色
-    # 播放量折线图
-    ax2 = ax1.twinx()  # 组合图必须加这个
-    ax2.plot(dm_play, color='cyan')  # 设置线粗细，节点样式
-    plt.ylabel('播放量')  # y轴
-    plt.plot(1, label='综合评分', color="red", linewidth=5.0)  # 图例
-    plt.plot(1, label='播放量', color="cyan", linewidth=1.0, linestyle="-")  # 图例
-    plt.legend()
-    plt.savefig(r'E:1.png', dpi=1000, bbox_inches='tight')  # 保存至本地
-    # 评论数和收藏数对比
-    # 评论数条形图
-    fig, ax3 = plt.subplots()
-    plt.bar(dm_name, dm_review, color='green')
-    plt.title('番剧评论数和收藏数分析')
-    plt.ylabel('评论数（万）')
-    ax3.tick_params(labelsize=6)
     plt.xticks(rotation=90, color='green')
     # 收藏数折线图
-    ax4 = ax3.twinx()  # 组合图必须加这个
-    ax4.plot(dm_favorite, color='yellow')  # 设置线粗细，节点样式
+    ax2 = ax1.twinx()  # 组合图
+    ax2.plot(dm_favorite, color='yellow')  # 设置线粗细，节点样式
     plt.ylabel('收藏数（万）')
-    plt.plot(1, label='评论数', color="green", linewidth=5.0)
+    plt.plot(1, label='播放量', color="green", linewidth=5.0)
     plt.plot(1, label='收藏数', color="yellow", linewidth=1.0, linestyle="-")
     plt.legend()
-    plt.savefig(r'E:2.png', dpi=1000, bbox_inches='tight')
-    # 综合评分和收藏数对比
-    # 综合评分条形图
-    fig, ax5 = plt.subplots()
-    plt.bar(dm_name, dm_com_score, color='red')
-    plt.title('综合评分和收藏数量数据分析')
-    plt.ylabel('综合评分')
-    ax5.tick_params(labelsize=6)
-    plt.xticks(rotation=90, color='green')
-    # 收藏折线图
-    ax6 = ax5.twinx()  # 组合图必须加这个
-    ax6.plot(dm_favorite, color='yellow')  # 设置线粗细，节点样式
-    plt.ylabel('收藏数（万）')
-    plt.plot(1, label='综合评分', color="red", linewidth=5.0)
-    plt.plot(1, label='收藏数', color="yellow", linewidth=1.0, linestyle="-")
-    plt.legend()
-    plt.savefig(r'E:3.png', dpi=1000, bbox_inches='tight')
-    # 播放量和评论数对比
-    # 播放量条形图
-    fig, ax7 = plt.subplots()
-    plt.bar(dm_name, dm_play, color='cyan')
-    plt.title('播放量和评论数 数据分析')
-    plt.ylabel('播放量（万）')
-    ax7.tick_params(labelsize=6)
-    plt.xticks(rotation=90, color='green')
-    # 评论数折线图
-    ax8 = ax7.twinx()  # 组合图必须加这个
-    ax8.plot(dm_review, color='green')  # 设置线粗细，节点样式
-    plt.ylabel('评论数（万）')
-    plt.plot(1, label='播放量', color="cyan", linewidth=5.0)
-    plt.plot(1, label='评论数', color="green", linewidth=1.0, linestyle="-")
-    plt.legend()
-    plt.savefig(r'E:4.png', dpi=1000, bbox_inches='tight')
-    plt.show()
+    plt.savefig(r'Compare.png', dpi=1000, bbox_inches='tight')
 
 
 def main():
