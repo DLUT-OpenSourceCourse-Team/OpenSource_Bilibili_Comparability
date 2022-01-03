@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
+import openpyxl
 
 
 def get_html(url):
@@ -22,7 +23,6 @@ def save(html):
     with open('./data/Cartoon_data.txt', 'r+', encoding='UTF-8') as f:
         f.write(soup.text)
     # 定义好相关列表准备存储相关信息
-    TScore = []  # 综合评分
     name = []  # 动漫名字
     bfl = []  # 播放量
     pls = []  # 评论数
@@ -59,11 +59,6 @@ def save(html):
         sc = re.search(r'\d*(\.)?\d', sc).group()
         scs.append(float(sc))
     print(scs)
-    # 综合评分
-    for tag in soup.find_all('div', class_='pts'):
-        zh = tag.find('div').get_text()
-        TScore.append(int(zh))
-    print('综合评分', TScore)
     # 存储至excel表格中
     info = {'动漫名': name, '播放量(万)': bfl, '评论数(万)': pls, '收藏数(万)': scs, '综合评分': TScore}
     dm_file = pandas.DataFrame(info)
@@ -78,7 +73,6 @@ def view(info):
     dm_play = info[1]  # 番剧播放量
     dm_review = info[2]  # 番剧评论数
     dm_favorite = info[3]  # 番剧收藏数
-    dm_com_score = info[4]  # 番剧综合评分
     # 为了坐标轴上能显示中文
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
