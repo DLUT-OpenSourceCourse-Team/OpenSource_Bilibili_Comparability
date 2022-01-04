@@ -1,10 +1,10 @@
 import re
+
+import matplotlib.pyplot as plt
 import pandas
 import requests
 from bs4 import BeautifulSoup
-import matplotlib.pyplot as plt
 from matplotlib import font_manager
-import openpyxl
 
 
 def get_html(url):
@@ -44,16 +44,16 @@ def save(html):
     print(bfl)
     # 收藏数
     for tag in soup.find_all('div', class_='detail'):
-        sc = tag.find('span', class_='data-box').next_sibling.next_sibling.next_sibling.next_sibling.get_text()
+        sc = tag.find('span', class_='data-box').next_sibling.next_sibling.get_text()
         sc = re.search(r'\d*(\.)?\d', sc).group()
         scs.append(float(sc))
     print(scs)
     # 存储至excel表格中
-    info = {'动漫名': name, '播放量(万)': bfl, '评论数(万)': pls, '收藏数(万)': scs, '综合评分': TScore}
+    info = {'动漫名': name, '播放量(万)': bfl, '收藏数(万)': scs, }
     dm_file = pandas.DataFrame(info)
     dm_file.to_excel('Cartoon.xlsx', sheet_name="动漫数据分析")
     # 将所有列表返回
-    return name, bfl, pls, scs, TScore
+    return name, bfl, scs
 
 
 def view(info):
