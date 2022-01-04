@@ -1,0 +1,12 @@
+my_font = font_manager.FontProperties(fname='./data/STHeiti Medium.ttc')  # 设置中文字体（图表中能显示中文）
+
+ # 为了坐标轴上能显示中文
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.rcParams['axes.unicode_minus'] = False
+
+    dm_name = info[0]  # 番剧名
+    dm_play = info[1]  # 番剧播放量
+    dm_review = info[2]  # 番剧评论数
+    dm_favorite = info[3]  # 番剧收藏数
+    dm_com_score = info[4]  # 番剧综合评分
+    # print(dm_com_score)
